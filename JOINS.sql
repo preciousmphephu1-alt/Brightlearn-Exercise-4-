@@ -222,4 +222,47 @@ SELECT users.user_id,
  FULL JOIN exercise4.joins.subscriptions
  ON users.user_id=subscriptions.user_id
  FULL JOIN exercise4.joins.plans
- ON subscriptions.plan_id=plans.plan_id      
+ ON subscriptions.plan_id=plans.plan_id  
+
+ --Bonus Challenge
+ --Question1 Which users have not subscribed to any plan?
+SELECT users.user_id,
+       user_name
+FROM exercise4.joins.users
+LEFT JOIN exercise4.joins.subscriptions
+ON users.user_id=subscriptions.user_id
+WHERE subscription_id IS NULL;
+
+--QUESTION 2 Which subscriptions reference users that do not exist in the users table?
+SELECT subscription_id,
+       subscriptions.user_id
+FROM exercise4.joins.subscriptions
+LEFT JOIN exercise4.joins.users
+ON subscriptions.user_id=users.user_id
+WHERE users.user_id IS NULL;
+
+--QUESTION 3 Which shows have never been watched?
+SELECT shows.show_id,
+       show_title
+FROM exercise4.joins.shows
+LEFT JOIN exercise4.joins.viewing_sessions
+ON shows.show_id=viewing_sessions.show_id
+WHERE session_id IS NULL;
+
+--QUESTION 4 Which viewing sessions reference shows that do not exist?
+SELECT viewing_sessions.session_id,
+       viewing_sessions.show_id
+FROM exercise4.joins.viewing_sessions
+LEFT JOIN exercise4.joins.shows
+ON viewing_sessions.show_id=shows.show_id
+WHERE shows.show_id IS NULL;
+
+--QUESTION 5 Which plans have no subscribers?
+
+SELECT DISTINCT
+       plans.plan_id,
+       plan_name
+FROM exercise4.joins.plans
+LEFT JOIN exercise4.joins.subscriptions
+    ON plans.plan_id = subscriptions.plan_id
+WHERE subscription_id IS NULL;
