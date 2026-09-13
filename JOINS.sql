@@ -184,8 +184,8 @@ FROM exercise4.joins.users AS A
 FULL JOIN exercise4.joins.subscriptions AS B
 ON A.user_id=B.user_id;
 
---QUESTION 12 subscription referencing a plan that does not exist.
-SELECT plans.plan_id,
+--QUESTION 12 Show every plan and every subscription, including plans without subscribers AND any  subscription referencing a plan that does not exist.
+SELECT DISTINCT plans.plan_id,
        plan_name,
        subscription_id,
        user_id
