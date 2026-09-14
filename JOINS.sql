@@ -36,11 +36,11 @@ FROM exercise4.joins.plans;
 CREATE TABLE IF NOT EXISTS exercise4.joins.subscriptions (subscription_id INT,user_id INT,plan_id INT,start_date DATE);
 
 INSERT INTO exercise4.joins.subscriptions
-VALUES (501,1,10,2026-01-15),
-(502,2,11,2026-02-01),
-(503,1,12,2026-03-10),
-(504,6,11,2026-03-20),
-(505,3,13,2026-04-05);
+VALUES (501,1,10,'2026-01-15'),
+(502,2,11,'2026-02-01'),
+(503,1,12,'2026-03-10'),
+(504,6,11,'2026-03-20'),
+(505,3,13,'2026-04-05');
 
 SELECT*
 FROM exercise4.joins.subscriptions;
@@ -185,6 +185,7 @@ FULL JOIN exercise4.joins.subscriptions AS B
 ON A.user_id=B.user_id;
 
 --QUESTION 12 Show every plan and every subscription, including plans without subscribers AND any  subscription referencing a plan that does not exist.
+
 SELECT DISTINCT plans.plan_id,
        plan_name,
        subscription_id,
@@ -226,43 +227,16 @@ SELECT users.user_id,
 
  --Bonus Challenge
  --Question1 Which users have not subscribed to any plan?
-SELECT users.user_id,
-       user_name
-FROM exercise4.joins.users
-LEFT JOIN exercise4.joins.subscriptions
-ON users.user_id=subscriptions.user_id
-WHERE subscription_id IS NULL;
+-- Kabelo and Lerato have not subscribed to any plan
 
---QUESTION 2 Which subscriptions reference users that do not exist in the users table?
-SELECT subscription_id,
-       subscriptions.user_id
-FROM exercise4.joins.subscriptions
-LEFT JOIN exercise4.joins.users
-ON subscriptions.user_id=users.user_id
-WHERE users.user_id IS NULL;
+--Question 2 Which subscriptions reference users that do not exist in the users table?
+--Subscription ID:504/User ID:6
 
---QUESTION 3 Which shows have never been watched?
-SELECT shows.show_id,
-       show_title
-FROM exercise4.joins.shows
-LEFT JOIN exercise4.joins.viewing_sessions
-ON shows.show_id=viewing_sessions.show_id
-WHERE session_id IS NULL;
+--Question 3 Which shows have never been watched?
+-- The cooking lab and wild earth have never been watched
 
---QUESTION 4 Which viewing sessions reference shows that do not exist?
-SELECT viewing_sessions.session_id,
-       viewing_sessions.show_id
-FROM exercise4.joins.viewing_sessions
-LEFT JOIN exercise4.joins.shows
-ON viewing_sessions.show_id=shows.show_id
-WHERE shows.show_id IS NULL;
+--Question 4 Which viewing session reference shows that do not exist?
+--Show ID 705 and session ID 905
 
---QUESTION 5 Which plans have no subscribers?
-
-SELECT DISTINCT
-       plans.plan_id,
-       plan_name
-FROM exercise4.joins.plans
-LEFT JOIN exercise4.joins.subscriptions
-    ON plans.plan_id = subscriptions.plan_id
-WHERE subscription_id IS NULL;
+--Question 5 which plans have no subscribers
+--Mobile plan has no subscribers
