@@ -211,7 +211,7 @@ SELECT users.user_id,
        watch_minutes
 FROM exercise4.joins.users
 FULL JOIN exercise4.joins.viewing_sessions
-ON users.user_id=viewing_sessions.user_id
+ON users.user_id=viewing_sessions.user_id;
 
 --QUESTION 15 Show every user, every subscription, and every plan in one query — using FULL OUTER JOIN throughout. This is the hardest question — get all gaps visible at once.
 SELECT users.user_id,
@@ -223,7 +223,7 @@ SELECT users.user_id,
  FULL JOIN exercise4.joins.subscriptions
  ON users.user_id=subscriptions.user_id
  FULL JOIN exercise4.joins.plans
- ON subscriptions.plan_id=plans.plan_id  
+ ON subscriptions.plan_id=plans.plan_id; 
 
  --Bonus Challenge
  --Question1 Which users have not subscribed to any plan?
